@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Url converter
+    </title>
+
+
+
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link
+      href="https://fonts.bunny.net/css?family=instrument-sans:400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --sand-1: #fdfdfc;
+        --sand-2: #f9f9f8;
+        --sand-3: #f1f0ef;
+        --sand-4: #e9e8e6;
+        --sand-5: #e2e1de;
+        --sand-6: #dad9d6;
+        --sand-7: #cfceca;
+        --sand-8: #bcbbb5;
+        --sand-9: #8d8d86;
+        --sand-10: #82827c;
+        --sand-11: #63635e;
+        --sand-12: #21201c;
+      }
+    </style>
+
+    <script src="https://cdn.tailwindcss.com">
+    // @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+  </script>
+
+  {{--  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: [ "Instrument Sans", "sans-serif" ]
+          },
+          colors: {
+            primary: {
+              DEFAULT: "#5A45FF",
+              lighter: "#a599ff"
+            },
+            sand: {
+              1: "var(--sand-1)",
+              2: "var(--sand-2)",
+              3: "var(--sand-3)",
+              4: "var(--sand-4)",
+              5: "var(--sand-5)",
+              6: "var(--sand-6)",
+              7: "var(--sand-7)",
+              8: "var(--sand-8)",
+              9: "var(--sand-9)",
+              10: "var(--sand-10)",
+              11: "var(--sand-11)",
+              12: "var(--sand-12)"
+            }
+          }
+        }
+      }
+    };
+  </script>  --}}
+
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
+  @stack('dumper')
+</head>
+<body class="min-h-screen w-screen font-sans bg-black">
+  <div
+    class="fixed xl:absolute left-8 right-8 top-0 bottom-0 xl:inset-0 max-w-screen-xl mx-auto before:content-[''] before:[background:repeating-linear-gradient(0deg,var(--sand-5)_0_4px,transparent_0_8px)] before:absolute before:top-0 before:left-0 before:h-full before:w-px after:content-[''] after:[background:repeating-linear-gradient(0deg,var(--sand-5)_0_4px,transparent_0_8px)] after:absolute after:top-0 after:right-0 after:h-full after:w-px"
+  >
+  </div>
+  @include('partials/header')
+  <section class="w-full px-3 antialiased bg-gradient-to-br from-gray-900 via-black to-gray-800 lg:px-6">
+    <div class="mx-auto max-w-7xl">
+
+  <div class="container px-6 py-32 mx-auto md:text-center md:px-4">
+    <h1
+      class="text-4xl font-extrabold leading-none leading-10 tracking-tight text-white sm:text-5xl md:text-6xl xl:text-7xl"
+    >
+      <span class="block">"Smart URL, Easy Access! 🚀" </span>      <span class="relative inline-block mt-3 text-white">Url converter</span>
+    </h1>
+    <p
+      class="mx-auto mt-6 text-sm text-left text-gray-200 md:text-center md:mt-12 sm:text-base md:max-w-xl md:text-lg xl:text-xl"
+    >
+      Turn your links into unique phrases! 🔗✨ Enter your URL and a custom keyword, and get a smart link. Just type in your phrase, and off you go! Try it now!!
+    </p>
+    @if(auth.isAuthenticated)
+    <p
+    class="mx-auto mt-6 text-sm text-left text-gray-200 md:text-center md:mt-12 sm:text-base md:max-w-xl md:text-lg xl:text-xl"
+  >
+    Welcome back {{auth.user.username}}! 🎉
+  </p>
+@end
+
+    <p
+    class="mx-auto mt-6 text-sm text-left text-gray-200 md:text-center md:mt-12 sm:text-base md:max-w-xl md:text-lg xl:text-xl"
+  >
+    Turn your links into unique phrases! 🔗✨ Enter your URL and a custom keyword, and get a smart link. Just type in your phrase, and off you go! Try it now!!
+  </p>
+
+    <div class="relative flex flex-col items-center mx-auto mt-12 overflow-hidden text-left rounded-md">
+      <form method="POST" action="/url" class="w-full max-w-md mx-auto bg-gray-900 p-6 rounded-lg shadow-md">
+        {{ csrfField() }}
+        <div class="mb-4">
+          <label for="url" class="block text-white text-sm font-bold mb-2">URL:</label>
+          <input
+            type="url"
+            id="url"
+            name="url"
+            placeholder="Entrez l'URL"
+            required
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="shortUrl" class="block text-white text-sm font-bold mb-2">phrase à encoder:</label>
+          <input
+            type="text"
+            id="shortUrl"
+            name="shortUrl"
+            placeholder="Entrer un shorturl au choix"
+            required
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div class="flex items-center justify-between">
+          <button
+            type="submit"
+            class="bg-white hover:bg-gray-100 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Envoyer l'URL
+                </button>
+        </div>
+      </form>
+      <div class="mt-8 flex justify-center gap-4 text-white">
+        <p>
+          Already have a shortUrl for this Url?
+        </p>
+        <a href="{{route('goToUrl')}}" class="text-blue-400 hover:text-blue-300 transition-colors">
+          Go to use your shortUrl
+          </a>
+
+      </div>
+
+    </div>
+
+    <div class="text-center mt-4 text-white">
+
+    </div>
+
+  </div>
+  <div class="mt-8 text-sm text-gray-300">
+    By signing up, you agree to our terms and services.
+  </div>
+</div>
+</div>
+</section>
+
+</body>
+</html>
