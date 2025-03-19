@@ -85,18 +85,14 @@
     <h1
       class="text-4xl font-extrabold leading-none leading-10 tracking-tight text-white sm:text-5xl md:text-6xl xl:text-7xl"
     >
-      <span class="block">"Smart URL, Easy Access! 🚀" </span>      <span class="relative inline-block mt-3 text-white">Url converter</span>
+      <span class="block">" Inscription to Smart URL Application! 🚀" </span>
     </h1>
-    <p
-      class="mx-auto mt-6 text-sm text-left text-gray-200 md:text-center md:mt-12 sm:text-base md:max-w-xl md:text-lg xl:text-xl"
-    >
-      Turn your links into unique phrases! 🔗✨ Enter your URL and a custom keyword, and get a smart link. Just type in your phrase, and off you go! Try it now!!
-    </p>
-    @if(isAuthenticated)
+
+    @if(auth.isAuthenticated)
     <p
     class="mx-auto mt-6 text-sm text-left text-gray-200 md:text-center md:mt-12 sm:text-base md:max-w-xl md:text-lg xl:text-xl"
   >
-    Welcome back {{user.username}}! 🎉
+    Welcome back {{auth.user.username}}! 🎉
   </p>
 @end
 
@@ -107,26 +103,37 @@
   </p>
 
     <div class="relative flex flex-col items-center mx-auto mt-12 overflow-hidden text-left rounded-md">
-      <form method="POST" action="/url" class="w-full max-w-md mx-auto bg-gray-900 p-6 rounded-lg shadow-md">
+      <form method="POST" action="/singIn" class="w-full max-w-md mx-auto bg-gray-900 p-6 rounded-lg shadow-md">
         {{ csrfField() }}
         <div class="mb-4">
-          <label for="url" class="block text-white text-sm font-bold mb-2">URL:</label>
+          <label for="email" class="block text-white text-sm font-bold mb-2">Email:</label>
           <input
-            type="url"
-            id="url"
-            name="url"
-            placeholder="Entrez l'URL"
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Entrez votre email"
             required
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
         <div class="mb-4">
-          <label for="shortUrl" class="block text-white text-sm font-bold mb-2">phrase à encoder:</label>
+          <label for="password" class="block text-white text-sm font-bold mb-2">password:</label>
           <input
             type="text"
-            id="shortUrl"
-            name="shortUrl"
-            placeholder="Entrer un shorturl au choix"
+            id="password"
+            name="password"
+            placeholder="Entrer votre mot de passe"
+            required
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="username" class="block text-white text-sm font-bold mb-2">username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Entrer votre username"
             required
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
@@ -136,36 +143,19 @@
             type="submit"
             class="bg-white hover:bg-gray-100 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            Envoyer l'URL
+            s'inscrire
                 </button>
         </div>
       </form>
       <div class="mt-8 flex justify-center gap-4 text-white">
         <p>
-          Already have a shortUrl for this Url?
+          Already have acaount?
         </p>
-        <a href="{{route('goToUrl')}}" class="text-blue-400 hover:text-blue-300 transition-colors">
-          Go to use your shortUrl
+        <a href="{{route('login')}}" class="text-blue-400 hover:text-blue-300 transition-colors">
+          Go to home page
           </a>
 
       </div>
-      <div  class="">
-        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-          <!-- ...existing mobile links... -->
-
-          {{-- Ajout du bouton de déconnexion pour mobile --}}
-
-            <form action="{{ route('logout') }}" method="POST" class="block">
-              {{ csrfField() }}
-              <button
-                type="submit"
-                class="w-full text-left text-red-400 hover:text-red-300 block px-3 py-2 rounded-md text-base font-medium cursor-pointer"
-              >
-                Déconnexion
-              </button>
-            </form>
-
-        </div>
 
     </div>
 
