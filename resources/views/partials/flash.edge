@@ -1,0 +1,11 @@
+@if(flashMessages.has('error'))
+  <div class="fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg animate-fade-in">
+    {{ flashMessages.get('error') }}
+  </div>
+@end
+
+@if(flashMessages.has('success'))
+  <div class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-fade-in">
+    {{ flashMessages.get('success') }}
+  </div>
+@end

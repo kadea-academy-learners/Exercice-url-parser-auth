@@ -122,6 +122,7 @@
             type="text"
             id="password"
             name="password"
+            autocomplete="new-password"
             placeholder="Entrer votre mot de passe"
             required
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -137,6 +138,18 @@
             required
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
+        </div>
+        <div class="mb-4">
+          <label for="role" class="block text-white text-sm font-bold mb-2">Rôle:</label>
+          <select
+            id="role"
+            name="role"
+            required
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          >
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
         </div>
         <div class="flex items-center justify-between">
           <button

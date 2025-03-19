@@ -92,11 +92,11 @@
     >
       Turn your links into unique phrases! 🔗✨ Enter your URL and a custom keyword, and get a smart link. Just type in your phrase, and off you go! Try it now!!
     </p>
-    @if(auth.isAuthenticated)
+    @if(isAuthenticated)
     <p
     class="mx-auto mt-6 text-sm text-left text-gray-200 md:text-center md:mt-12 sm:text-base md:max-w-xl md:text-lg xl:text-xl"
   >
-    Welcome back {{auth.user.username}}! 🎉
+    Welcome back {{user.username}}! 🎉
   </p>
 @end
 
@@ -149,6 +149,23 @@
           </a>
 
       </div>
+      <div  class="">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+          <!-- ...existing mobile links... -->
+
+          {{-- Ajout du bouton de déconnexion pour mobile --}}
+
+            <form action="{{ route('logout') }}" method="POST" class="block">
+              {{ csrfField() }}
+              <button
+                type="submit"
+                class="w-full text-left text-red-400 hover:text-red-300 block px-3 py-2 rounded-md text-base font-medium cursor-pointer"
+              >
+                Déconnexion
+              </button>
+            </form>
+
+        </div>
 
     </div>
 

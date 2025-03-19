@@ -5,6 +5,7 @@ import { BaseModel, column, hasMany } from '@adonisjs/lucid/orm'
 import { withAuthFinder } from '@adonisjs/auth/mixins/lucid'
 import Url from './url.js'
 import type { HasMany } from '@adonisjs/lucid/types/relations'
+import { RoleValue } from '../Enumes/RoleEnum.js'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['email'],
@@ -25,7 +26,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare username: string
 
   @column()
-  declare role: string
+  declare role: RoleValue
 
   @column()
   declare avatar: string

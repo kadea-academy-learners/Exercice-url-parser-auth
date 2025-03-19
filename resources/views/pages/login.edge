@@ -91,7 +91,7 @@
     <p
     class="mx-auto mt-6 text-sm text-left text-gray-200 md:text-center md:mt-12 sm:text-base md:max-w-xl md:text-lg xl:text-xl"
   >
-    Welcome back {{auth.user.username}}! 🎉
+    Welcome back {{username}}! 🎉
   </p>
 @end
 
@@ -122,6 +122,7 @@
             id="password"
             name="password"
             placeholder="Entrer votre mot de passe"
+            autocomplete="new-password"
             required
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
