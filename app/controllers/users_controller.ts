@@ -10,6 +10,7 @@ export default class UsersController {
     const payload = await uservalidatore.validate(data)
 
 
+
     try {
 
 
@@ -32,14 +33,18 @@ export default class UsersController {
 
   public async login({request,response,view,auth}:HttpContext){
     const data = request.all()
-    console.log( 'data',data);
     const payload = await loginvalidatore.validate(data)
+
+
 
     try {
 
 
 
       const user = await User.findBy('email',payload.email)
+      console.log(user);
+
+
 
 
       if (!user) {
@@ -47,11 +52,15 @@ export default class UsersController {
           return response.redirect('pages/login')
 
       }
-      const isPasswordValid = await User.verifyCredentials(payload.email,payload.password)
-      if (!isPasswordValid) {
-        response.status(400).send({messages:"Mot de passe incorrect"})
-        return response.redirect('pages/login')
-      }
+      console.log('credent');
+
+      // const isPasswordValid = await User.verifyCredentials(payload.email,payload.password)
+      // console.log('isPasswordValid',isPasswordValid);
+
+      // if (!isPasswordValid) {
+      //   response.status(400).send({messages:"Mot de passe incorrect"})
+      //   return response.redirect('pages/login')
+      // }
 
       await auth.use('web').login(user)
 
