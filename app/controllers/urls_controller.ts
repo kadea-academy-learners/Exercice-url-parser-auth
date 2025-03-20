@@ -7,6 +7,8 @@ export default class UrlsController {
   public async generate({request,response,auth,session}:HttpContext){
 
 const data = request.all()
+const payload = await urlvalidatore.validate(data)
+
 
 
 
@@ -18,7 +20,6 @@ const data = request.all()
         return response.redirect().toRoute('pages/login')
 
     }
-    const payload = await urlvalidatore.validate(data)
 
 
 

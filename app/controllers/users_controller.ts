@@ -7,11 +7,12 @@ export default class UsersController {
   public async singIn({request,response,view}:HttpContext){
     const data = request.all()
 
+    const payload = await uservalidatore.validate(data)
+
+
     try {
 
-      const payload = await uservalidatore.validate(data)
-      console.log('payload',
-      payload);
+
 
       const finduser = await User.findBy('email',payload.email)
       console.log('finuser',finduser);
@@ -32,10 +33,10 @@ export default class UsersController {
   public async login({request,response,view,auth}:HttpContext){
     const data = request.all()
     console.log( 'data',data);
+    const payload = await loginvalidatore.validate(data)
+
     try {
-      const payload = await loginvalidatore.validate(data)
-      console.log( 'payload',
-      payload);
+
 
 
       const user = await User.findBy('email',payload.email)
