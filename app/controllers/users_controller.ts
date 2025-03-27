@@ -8,6 +8,8 @@ export default class UsersController {
     const data = request.all()
 
     const payload = await uservalidatore.validate(data)
+    console.log('payload',payload);
+
     try {
 
       const findUser = await User.findBy('email',payload.email)
