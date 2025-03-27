@@ -8,17 +8,12 @@ export default class UsersController {
     const data = request.all()
 
     const payload = await uservalidatore.validate(data)
-
-
-
     try {
 
+      const findUser = await User.findBy('email',payload.email)
+      console.log('finuser',findUser);
 
-
-      const finduser = await User.findBy('email',payload.email)
-      console.log('finuser',finduser);
-
-      if (finduser) {
+      if (findUser) {
          response.status(400).send({messages:"Utilisateur non trouvé"})
          return response.redirect('pages/login')
       }
@@ -34,34 +29,14 @@ export default class UsersController {
   public async login({request,response,view,auth}:HttpContext){
     const data = request.all()
     const payload = await loginvalidatore.validate(data)
-
-
-
     try {
-
-
-
       const user = await User.findBy('email',payload.email)
       console.log(user);
-
-
-
-
       if (!user) {
          response.status(400).send({messages:"Utilisateur non trouvé"})
           return response.redirect('pages/login')
-
       }
       console.log('credent');
-
-      // const isPasswordValid = await User.verifyCredentials(payload.email,payload.password)
-      // console.log('isPasswordValid',isPasswordValid);
-
-      // if (!isPasswordValid) {
-      //   response.status(400).send({messages:"Mot de passe incorrect"})
-      //   return response.redirect('pages/login')
-      // }
-
       await auth.use('web').login(user)
 
       return view.render('pages/home',{isAuthenticated:true,

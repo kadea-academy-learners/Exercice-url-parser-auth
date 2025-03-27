@@ -5,9 +5,9 @@ export default class UsersController {
         const data = request.all();
         const payload = await uservalidatore.validate(data);
         try {
-            const finduser = await User.findBy('email', payload.email);
-            console.log('finuser', finduser);
-            if (finduser) {
+            const findUser = await User.findBy('email', payload.email);
+            console.log('finuser', findUser);
+            if (findUser) {
                 response.status(400).send({ messages: "Utilisateur non trouvé" });
                 return response.redirect('pages/login');
             }

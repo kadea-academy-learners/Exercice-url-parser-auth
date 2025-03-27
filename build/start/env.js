@@ -5,6 +5,7 @@ export default await Env.create(new URL('../', import.meta.url), {
     APP_KEY: Env.schema.string(),
     HOST: Env.schema.string({ format: 'host' }),
     LOG_LEVEL: Env.schema.string(),
+    DB_CONNECTION: Env.schema.enum(['postgres']),
     SESSION_DRIVER: Env.schema.enum(['cookie', 'memory']),
     DB_HOST: Env.schema.string({ format: 'host' }),
     DB_PORT: Env.schema.number(),
