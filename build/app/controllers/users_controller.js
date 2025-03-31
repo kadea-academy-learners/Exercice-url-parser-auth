@@ -1,20 +1,27 @@
 import User from '#models/user';
 import { loginvalidatore, uservalidatore } from '#validators/user';
 export default class UsersController {
-    async singIn({ request, response, view }) {
-        const data = request.all();
-        const payload = await uservalidatore.validate(data);
+    async singIn({ request, response, session }) {
         try {
+            const data = request.all();
+            const payload = await uservalidatore.validate(data);
             const findUser = await User.findBy('email', payload.email);
-            console.log('finuser', findUser);
             if (findUser) {
-                response.status(400).send({ messages: "Utilisateur non trouvé" });
-                return response.redirect('pages/login');
+                session.flash('error', 'Email already registered');
+                return response.redirect().back();
             }
-            await User.create({ email: payload.email, username: payload.username, password: payload.password, role: payload.role });
-            return view.render('pages/login', { username: payload.username });
+            await User.create({
+                email: payload.email,
+                username: payload.username,
+                password: payload.password,
+                role: payload.role
+            });
+            session.flash('success', 'Registration successful');
+            return response.redirect().toRoute('login');
         }
         catch (error) {
+            console.error('Registration error:', error);
+            session.flash('error', 'Registration failed');
             return response.redirect().back();
         }
     }

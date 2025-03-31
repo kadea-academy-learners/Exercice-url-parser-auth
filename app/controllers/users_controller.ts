@@ -17,7 +17,7 @@ export default class UsersController {
         return response.redirect().back()
       }
 
-      const addUser = await User.create({
+      await User.create({
         email: payload.email,
         username: payload.username,
         password: payload.password,
