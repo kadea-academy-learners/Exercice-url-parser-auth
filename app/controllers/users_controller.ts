@@ -4,27 +4,34 @@ import type { HttpContext } from '@adonisjs/core/http'
 import { RoleValue } from '../Enumes/RoleEnum.js'
 
 export default class UsersController {
-  public async singIn({request,response,view}:HttpContext){
-    const data = request.all()
-
-    const payload = await uservalidatore.validate(data)
-    console.log('payload',payload);
-
+  public async singIn({ request, response, session}: HttpContext) {
     try {
+      const data = request.all()
 
-      const findUser = await User.findBy('email',payload.email)
-      console.log('finuser',findUser);
+      const payload = await uservalidatore.validate(data)
+
+      const findUser = await User.findBy('email', payload.email)
 
       if (findUser) {
-         response.status(400).send({messages:"Utilisateur non trouvé"})
-         return response.redirect('pages/login')
+        session.flash('error', 'Email already registered')
+        return response.redirect().back()
       }
-      await User.create({email:payload.email,username:payload.username,password:payload.password,role:payload.role as RoleValue})
-        return view.render('pages/login',{username:payload.username})
+
+      const addUser = await User.create({
+        email: payload.email,
+        username: payload.username,
+        password: payload.password,
+        role: payload.role as RoleValue
+      })
+
+
+      session.flash('success', 'Registration successful')
+      return response.redirect().toRoute('login')
 
     } catch (error) {
+      console.error('Registration error:', error)
+      session.flash('error', 'Registration failed')
       return response.redirect().back()
-
     }
   }
 
