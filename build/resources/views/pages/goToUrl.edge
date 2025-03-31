@@ -66,38 +66,8 @@
       };
     </script>
 
-@vite(['resources/css/app.css'])
-    @vite(['resources/js/app.js'])
-    @vite(['resources/js/flowbite.js'])
-    @vite(['resources/js/flowbite-datepicker.js'])
-
-    @if (config('app.env') === 'production')
-      <script src="https://cdn.splitbee.io/sb.js" data-api="https://cdn.splitbee.io" async></script>
-    @endif
-
-    {{-- Include any additional scripts --}}
-    @if (config('app.env') === 'production')
-      <script src="https://cdn.splitbee.io/sb.js" data-api="https://cdn.splitbee.io" async></script>
-    @endif
-    @if (config('app.env') === 'production')
-      <script src="https://cdn.splitbee.io/sb.js" data-api="https://cdn.splitbee.io" async></script>
-    @endif
-    @if (config('app.env') === 'production')
-      <script src="https://cdn.splitbee.io/sb.js" data-api="https://cdn.splitbee.io" async></script>
-    @endif
-    @if (config('app.env') === 'production')
-      <script src="https://cdn.splitbee.io/sb.js" data-api="https://cdn.splitbee.io" async></script>
-    @endif
-    @if (config('app.env') === 'production')
-      <script src="https://cdn.splitbee.io/sb.js" data-api="https://cdn.splitbee.io" async></script>
-    @endif
-    @if (config('app.env') === 'production')
-      <script src="https://cdn.splitbee.io/sb.js" data-api="https://cdn.splitbee.io" async></script>
-    @endif
-    @if (config('app.env') === 'production')
-      <script src="https://cdn.splitbee.io/sb.js" data-api="https://cdn.splitbee.io" async></script>
-    @endif
-@stack('scripts')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('dumper')
   </head>
   <body class="min-h-screen w-screen font-sans">
     <div
@@ -331,6 +301,6 @@
 
 
   <!-- Remplacer toute la section <script> par : -->
-  @vite(['resources/css/app.css'])
+  @vite(['resources/css/app.css', 'resources/js/urls.js'])
 </body>
 </html>
