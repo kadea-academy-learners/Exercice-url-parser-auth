@@ -12,14 +12,6 @@ export default class HttpExceptionHandler extends ExceptionHandler {
         },
     };
     async handle(error, ctx) {
-        if (process.env.NODE_ENV === 'production') {
-            console.error('Error:', error);
-            return ctx.response.status(error.status || 500).send({
-                message: error.message,
-                stack: error.stack,
-                code: error.code,
-            });
-        }
         return super.handle(error, ctx);
     }
     async report(error, ctx) {
