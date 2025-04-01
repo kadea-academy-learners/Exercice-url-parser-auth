@@ -10,7 +10,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
   protected debug = !app.inProduction
 
   /**
-   * Status pages are used to display a custom HTML pages for certain error
+   * Status pages are used to display custom HTML pages for certain error
    * codes. You might want to enable them in production only, but feel
    * free to enable them in development as well.
    */
@@ -33,17 +33,34 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * The method is used for handling errors and returning
    * response to the client
    */
-  async handle(error: unknown, ctx: HttpContext) {
+  async handle(error: any, ctx: HttpContext) {
+    if (process.env.NODE_ENV === 'production') {
+      // Log the error for debugging
+      console.error('Error:', error)
+
+      // Show detailed error message in production (temporary debugging)
+      return ctx.response.status(error.status || 500).send({
+        message: error.message,
+        stack: error.stack,
+        code: error.code,
+      })
+    }
+
+    // Default behavior for non-production environments
     return super.handle(error, ctx)
   }
 
   /**
-   * The method is used to report error to the logging service or
-   * the a third party error monitoring service.
+   * The method is used to report errors to a logging service or
+   * a third-party error monitoring service.
    *
    * @note You should not attempt to send a response from this method.
    */
-  async report(error: unknown, ctx: HttpContext) {
+  async report(error: any, ctx: HttpContext) {
+    // Log the error for debugging or send it to a third-party service
+    console.error('Reported Error:', error)
+
+    // Call the parent report method for default behavior
     return super.report(error, ctx)
   }
 }
